@@ -1,6 +1,6 @@
 package fr.umontpellier.iut.model;
 
 public abstract class ModelPiece {
-    public int valeur;
+    private final static int valeur = 0;
 
 }

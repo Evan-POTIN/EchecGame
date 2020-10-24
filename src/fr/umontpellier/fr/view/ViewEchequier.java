@@ -1,4 +1,4 @@
-package sample.view;
+package fr.umontpellier.fr.view;
 
 
 public class ViewEchequier {

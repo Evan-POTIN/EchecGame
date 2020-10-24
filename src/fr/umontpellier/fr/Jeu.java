@@ -1,4 +1,4 @@
-package sample;
+package fr.umontpellier.fr;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

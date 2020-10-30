@@ -10,6 +10,11 @@ public class ModelCase {
         posY = y;
     }
 
+    public int[] getPos() {
+        int[] coord = {posX, posY};
+        return coord;
+    }
+
     public void setPiece(ModelPiece p) {
         piece = p;
     }
@@ -22,4 +27,10 @@ public class ModelCase {
         s += "]";
         return s;
     }
+
+    public boolean estVide() {
+        return  this.piece == null;
+    }
+
+
 }

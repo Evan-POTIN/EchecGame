@@ -20,7 +20,7 @@ public class Jeu extends Application {
 
     public static void main(String[] args) {
         ModelEchiquier e = new ModelEchiquier();
-        System.out.println(e.toString());
+        System.out.println(e.toString()); System.exit(0);
         //launch(args);
     }
 }

@@ -1,5 +1,7 @@
 package fr.umontpellier.iut.model;
 
+import java.util.ArrayList;
+
 public class ModelCase {
     private ModelPiece piece;
     private int posX, posY;
@@ -14,9 +16,12 @@ public class ModelCase {
         return piece;
     }
 
-    public int[] getPos() {
-        int[] coord = {posX, posY};
-        return coord;
+    public int getPosX() {
+        return posX;
+    }
+
+    public int getPosY() {
+        return posY;
     }
 
     public void setPiece(ModelPiece p) {
@@ -34,6 +39,18 @@ public class ModelCase {
 
     public boolean estVide() {
         return  this.piece == null;
+    }
+
+    public boolean deplacerPiece(ModelCase dest) {
+        ArrayList<ModelCase> coupsPossible = this.piece.casesPossible(posX, posY);
+
+        if(coupsPossible.contains(dest)) {
+            dest.setPiece(this.piece);
+            this.setPiece(null);
+            return true;
+        } else {
+            return false;
+        }
     }
 
 

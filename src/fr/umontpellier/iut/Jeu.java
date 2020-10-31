@@ -22,6 +22,13 @@ public class Jeu extends Application {
         ModelEchiquier e = new ModelEchiquier();
         e.setRoiTour();
         System.out.println(e.toString());
+
+        System.out.println(ModelEchiquier.getCase(0,0).deplacerPiece(ModelEchiquier.getCase(0,1)));
+
+        System.out.println(e.toString());
+
+
+
         System.exit(0);
         //launch(args);
     }

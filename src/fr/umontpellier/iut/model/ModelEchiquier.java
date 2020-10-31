@@ -32,8 +32,9 @@ public class ModelEchiquier {
         return s.toString();
     }
 
-    public static ModelCase[][] getEchiquierS() {
-        return echiquier;
+    public static ModelCase getCase(int x, int y) {
+        return echiquier[x][y];
     }
+
 
 }

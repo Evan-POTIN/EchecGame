@@ -1,5 +1,7 @@
 package fr.umontpellier.iut.model;
 
+import java.util.ArrayList;
+
 public abstract class ModelPiece {
 
     protected Couleurs clr;
@@ -12,7 +14,8 @@ public abstract class ModelPiece {
         return clr;
     }
 
-    public void test() {
-        System.out.println(ModelEchiquier.getEchiquierS().toString());
+    public ArrayList<ModelCase> casesPossible(int x, int y) {
+        return null;
     }
+
 }

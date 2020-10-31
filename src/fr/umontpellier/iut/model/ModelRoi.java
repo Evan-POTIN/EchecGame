@@ -4,7 +4,13 @@ public class ModelRoi extends ModelPiece {
 
     private static final int valeur = 100;
 
-    public String toString() {
-        return "R";
+    public ModelRoi(Couleurs clr) {
+        super(clr);
     }
+
+    public String toString() {
+        return clr == Couleurs.BLANC ? "R" : "r";
+    }
+
+
 }

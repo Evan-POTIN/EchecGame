@@ -1,6 +1,6 @@
 package fr.umontpellier.iut;
 
-import fr.umontpellier.iut.model.ModelEchiquier;
+import fr.umontpellier.iut.model.*;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -20,7 +20,9 @@ public class Jeu extends Application {
 
     public static void main(String[] args) {
         ModelEchiquier e = new ModelEchiquier();
-        System.out.println(e.toString()); System.exit(0);
+        e.setRoiTour();
+        System.out.println(e.toString());
+        System.exit(0);
         //launch(args);
     }
 }

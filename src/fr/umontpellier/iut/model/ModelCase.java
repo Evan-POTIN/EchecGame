@@ -10,6 +10,10 @@ public class ModelCase {
         posY = y;
     }
 
+    public ModelPiece getPiece() {
+        return piece;
+    }
+
     public int[] getPos() {
         int[] coord = {posX, posY};
         return coord;

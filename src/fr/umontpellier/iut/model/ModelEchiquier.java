@@ -1,7 +1,7 @@
 package fr.umontpellier.iut.model;
 
 public class ModelEchiquier {
-    private static ModelCase[][] echiquier;
+    private ModelCase[][] echiquier;
 
     public ModelEchiquier() {
         echiquier = new ModelCase[8][8];    // Initialisation de la matrice 8x8
@@ -14,9 +14,9 @@ public class ModelEchiquier {
     }
 
     public void setRoiTour() {
-        echiquier[0][0].setPiece(new ModelRoi(Couleurs.BLANC));
-        echiquier[1][0].setPiece(new ModelTour(Couleurs.NOIR));
-        echiquier[5][3].setPiece(new ModelRoi(Couleurs.NOIR));
+        echiquier[0][0].setPiece(new ModelRoi(Couleurs.BLANC, echiquier));
+        echiquier[1][0].setPiece(new ModelTour(Couleurs.NOIR, echiquier));
+        echiquier[5][3].setPiece(new ModelRoi(Couleurs.NOIR, echiquier));
     }
 
     public String toString() {
@@ -32,7 +32,7 @@ public class ModelEchiquier {
         return s.toString();
     }
 
-    public static ModelCase getCase(int x, int y) {
+    public ModelCase getCase(int x, int y) {
         return echiquier[x][y];
     }
 

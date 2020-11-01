@@ -80,8 +80,19 @@ public class ModelRoi extends ModelPiece {
          * @Param: Coordonnées de la pièce
          * @Return: True si roi en Echec sur plateau[x][y], False sinon
          */
+        ArrayList<ModelCase> CasePlateau = new ArrayList<ModelCase>();
+        for (int i = 0; i <9 ; i++) {
+            for (int j = 0; j <9; j++) {
+                CasePlateau.add(ModelEchiquier.getCase(i,j));
+            }
 
-        return false;
+        }
+        if (){
+
+        }
+
+        else {
+            return false;}
     }
 
 

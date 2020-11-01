@@ -7,7 +7,7 @@ public class ModelRoi extends ModelPiece {
     private static final int valeur = 100;
     private boolean premierCoup = false;
 
-    public ModelRoi(Couleurs clr, ModelCase[][] plateau) {
+    public ModelRoi(Couleurs clr, ModelEchiquier plateau) {
         super(clr, plateau);
     }
 
@@ -27,46 +27,46 @@ public class ModelRoi extends ModelPiece {
 
         if(x-1 >= 0) {
             // Si pas sur la 1ère ligne
-            cases.add(plateau[x-1][y]);
+            cases.add(plateau.getCase(x-1, y));
 
             if(y-1 >= 0) {
-                cases.add(plateau[x-1][y-1]);
+                cases.add(plateau.getCase(x-1,y-1));
             }
             if(y+1 <= 7) {
-                cases.add(plateau[x-1][y+1]);
+                cases.add(plateau.getCase(x-1,y+1));
             }
         }
         if(x+1 <= 7) {
             // Si pas sur la dernière ligne
-            cases.add(plateau[x+1][y]);
+            cases.add(plateau.getCase(x+1, y));
 
             if(y-1 >= 0) {
-                cases.add(plateau[x+1][y-1]);
+                cases.add(plateau.getCase(x+1, y-1));
             }
             if(y+1 <= 7) {
-                cases.add(plateau[x+1][y+1]);
+                cases.add(plateau.getCase(x+1,y+1));
             }
         }
         if(y-1 >= 0) {
             // Si pas sur la 1ère colonne
-            cases.add(plateau[x][y-1]);
+            cases.add(plateau.getCase(x, y-1));
 
             if(x-1 >= 0) {
-                cases.add(plateau[x-1][y-1]);
+                cases.add(plateau.getCase(x-1,y-1));
             }
             if(x+1 <= 7) {
-                cases.add(plateau[x+1][y-1]);
+                cases.add(plateau.getCase(x+1,y-1));
             }
         }
         if(y+1 <= 7) {
             // Si pas sur dernière colonne
-            cases.add(plateau[x][y+1]);
+            cases.add(plateau.getCase(x,y+1));
 
             if(x-1 >= 0) {
-                cases.add(plateau[x-1][y+1]);
+                cases.add(plateau.getCase(x-1,y+1));
             }
             if(x+1 <= 7) {
-                cases.add(plateau[x+1][y+1]);
+                cases.add(plateau.getCase(x+1,y+1));
             }
         }
         return cases;

@@ -43,7 +43,6 @@ public class ModelCase {
 
     public boolean deplacerPiece(ModelCase dest) {
 
-
         ArrayList<ModelCase> coupsPossible = this.piece.casesPossible(posX, posY);
 
         if(coupsPossible.contains(dest)) {

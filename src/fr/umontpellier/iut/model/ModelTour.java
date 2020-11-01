@@ -23,8 +23,6 @@ public class ModelTour extends ModelPiece {
 
         ArrayList<ModelCase> cases = new ArrayList<>();
 
-        System.out.println(plateau.toString());
-
         for(int plusX = x+1 ; plusX < 8 ; plusX++ ){
             if(plateau.getCase(plusX,y).estVide() || plateau.getCase(plusX,y).getPiece().clr != this.clr ){
                 cases.add(plateau.getCase(plusX, y));

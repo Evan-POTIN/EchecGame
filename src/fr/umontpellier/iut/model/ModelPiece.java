@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public abstract class ModelPiece {
 
+    private int valeur;
     protected Couleurs clr;
     protected ModelEchiquier plateau;    // Référence du plateau pour calculer les coups possibles
 
@@ -18,6 +19,10 @@ public abstract class ModelPiece {
 
     public ArrayList<ModelCase> casesPossible(int x, int y) {
         return null;
+    }
+
+    public int getValeur() {
+        return  valeur;
     }
 
 }

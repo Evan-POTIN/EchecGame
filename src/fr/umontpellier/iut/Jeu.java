@@ -22,12 +22,10 @@ public class Jeu extends Application {
         ModelEchiquier e = new ModelEchiquier();
         e.setRoiTour();
         System.out.println(e.toString());
-
         System.out.println(e.getCase(0,0).deplacerPiece(e.getCase(0,1)));
         System.out.println(e.getCase(0,1).deplacerPiece(e.getCase(1,2)));
         System.out.println(e.toString());
-        e.getCase(1,0).deplacerPiece(e.getCase(1,3));
-        System.out.println(e.toString());
+
 
 
 

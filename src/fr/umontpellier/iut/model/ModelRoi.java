@@ -92,7 +92,8 @@ public class ModelRoi extends ModelPiece {
         }
 
         else {
-            return false;}
+            return false;
+        }
     }
 
 

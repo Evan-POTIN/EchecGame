@@ -36,7 +36,7 @@ public class ModelRoi extends ModelPiece {
                 cases.add(plateau[x-1][y+1]);
             }
         }
-        else if(x+1 <= 7) {
+        if(x+1 <= 7) {
             // Si pas sur la dernière ligne
             cases.add(plateau[x+1][y]);
 
@@ -47,7 +47,7 @@ public class ModelRoi extends ModelPiece {
                 cases.add(plateau[x+1][y+1]);
             }
         }
-        else if(y-1 >= 0) {
+        if(y-1 >= 0) {
             // Si pas sur la 1ère colonne
             cases.add(plateau[x][y-1]);
 
@@ -58,7 +58,7 @@ public class ModelRoi extends ModelPiece {
                 cases.add(plateau[x+1][y-1]);
             }
         }
-        else if(y+1 <= 7) {
+        if(y+1 <= 7) {
             // Si pas sur dernière colonne
             cases.add(plateau[x][y+1]);
 
@@ -80,7 +80,8 @@ public class ModelRoi extends ModelPiece {
          * @Param: Coordonnées de la pièce
          * @Return: True si roi en Echec sur plateau[x][y], False sinon
          */
-        ArrayList<ModelCase> CasePlateau = new ArrayList<ModelCase>();
+
+        /*ArrayList<ModelCase> CasePlateau = new ArrayList<ModelCase>();
         for (int i = 0; i <9 ; i++) {
             for (int j = 0; j <9; j++) {
                 CasePlateau.add(ModelEchiquier.getCase(i,j));
@@ -93,7 +94,8 @@ public class ModelRoi extends ModelPiece {
 
         else {
             return false;
-        }
+        }*/
+        return false;
     }
 
 

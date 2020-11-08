@@ -1,4 +1,4 @@
-package fr.umontpellier.iut.model;
+package fr.umontpellier.iut.main.model;
 
 public enum Couleurs {
     BLANC,

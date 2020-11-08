@@ -1,4 +1,4 @@
-package fr.umontpellier.iut.model;
+package fr.umontpellier.iut.main.model;
 
 public class ModelEchiquier {
     private ModelCase[][] echiquier;

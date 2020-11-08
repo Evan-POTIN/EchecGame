@@ -1,5 +1,6 @@
-package fr.umontpellier.iut;
+package fr.umontpellier.iut.main;
 
+import fr.umontpellier.iut.main.model.ModelEchiquier;
 import fr.umontpellier.iut.model.*;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

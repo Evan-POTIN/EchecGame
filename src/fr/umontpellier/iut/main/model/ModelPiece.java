@@ -24,5 +24,4 @@ public abstract class ModelPiece {
     public int getValeur() {
         return  valeur;
     }
-
 }

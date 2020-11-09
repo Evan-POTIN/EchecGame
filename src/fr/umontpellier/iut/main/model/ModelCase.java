@@ -48,6 +48,13 @@ public class ModelCase {
         if(coupsPossible.contains(dest)) {
             dest.setPiece(this.piece);
             this.setPiece(null);
+            if (this.getPiece() != null && this.getPiece().getValeur() == 100){
+                if (this.getPiece().getClr() == Couleurs.BLANC){
+                    ((ModelRoi) this.getPiece()).setPosition(new int[]{dest.getPosX(),dest.getPosY()});
+                }else {
+                    ((ModelRoi) this.getPiece()).setPosition(new int[]{dest.getPosX(),dest.getPosY()});
+                }
+            }
             return true;
         } else {
             return false;

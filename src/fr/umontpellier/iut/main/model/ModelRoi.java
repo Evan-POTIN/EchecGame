@@ -6,9 +6,20 @@ public class ModelRoi extends ModelPiece {
 
     private final int valeur = 100;
     private boolean premierCoup = false;
+    private int[] position;
 
-    public ModelRoi(Couleurs clr, ModelEchiquier plateau) {
+    public ModelRoi(Couleurs clr, ModelEchiquier plateau, int[] position) {
+
         super(clr, plateau);
+        this.position = position;
+    }
+
+    public int[] getPosition() {
+        return position;
+    }
+
+    public void setPosition(int[] position) {
+        this.position = position;
     }
 
     public String toString() {
@@ -124,7 +135,9 @@ public class ModelRoi extends ModelPiece {
         return echec;
     }
 
-
+    public boolean echecEtMat(){
+        return this.estEchec(position[0], position[1]) && this.casesPossible(position[0],position[1]).size() == 0;
+    }
     public boolean isPremierCoup() {
         return premierCoup;
     }

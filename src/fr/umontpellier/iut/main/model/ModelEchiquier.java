@@ -30,9 +30,13 @@ public class ModelEchiquier {
     }
 
     public void setRoiTour() {
-        echiquier[4][0].setPiece(new ModelRoi(Couleurs.BLANC, this, new int[]{4, 0}));
-        roiBlanc = (ModelRoi)echiquier[4][0].getPiece();
-        echiquier[2][2].setPiece(new ModelTour(Couleurs.BLANC, this));
+        echiquier[2][1].setPiece(new ModelRoi(Couleurs.BLANC, this, new int[]{2, 1}));
+        roiBlanc = (ModelRoi)echiquier[2][1].getPiece();
+        echiquier[0][3].setPiece(new ModelTour(Couleurs.BLANC, this));
+
+        echiquier[1][0].setPiece(new ModelTour(Couleurs.BLANC, this));
+
+
         echiquier[0][0].setPiece(new ModelRoi(Couleurs.NOIR, this, new int[]{0, 0}));
         roiNoir = (ModelRoi)echiquier[0][0].getPiece();
     }

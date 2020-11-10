@@ -20,4 +20,16 @@ public class TestPieces {
 
         assertTrue(roi.estEchec(0, 0));
     }
+
+    @Test
+    public void  testRoiEstEchecEtMat(){
+        echiquierTest.setRoiTour();
+        assertTrue(echiquierTest.getRoiBlanc().echecEtMat());
+    }
+
+    @Test
+    public void  testRoiPasBouger(){
+        echiquierTest.setRoiTour();
+        assertEquals(0, echiquierTest.getRoiBlanc().casesPossible(0,0).size());
+    }
 }

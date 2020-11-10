@@ -56,6 +56,7 @@ public class ModelRoi extends ModelPiece {
         if(x+1 <= 7) {
             // Si pas sur la dernière ligne
             if(!estEchec(x+1, y)) {
+
                 cases.add(plateau.getCase(x+1, y));
             }
 
@@ -77,34 +78,15 @@ public class ModelRoi extends ModelPiece {
                 cases.add(plateau.getCase(x, y-1));
             }
 
-            if(x-1 >= 0) {
-                if(!estEchec(x-1, y-1)) {
-                    cases.add(plateau.getCase(x-1,y-1));
-                }
-            }
-            if(x+1 <= 7) {
-                if(!estEchec(x+1, y-1)) {
-                    cases.add(plateau.getCase(x+1,y-1));
-                }
-            }
         }
         if(y+1 <= 7) {
             // Si pas sur dernière colonne
             if(!estEchec(x, y+1)) {
+                System.out.println("messonge");
                 cases.add(plateau.getCase(x,y+1));
             }
-
-            if(x-1 >= 0) {
-                if(!estEchec(x-1, y+1)) {
-                    cases.add(plateau.getCase(x-1,y+1));
-                }
-            }
-            if(x+1 <= 7) {
-                if(!estEchec(x+1, y+1)) {
-                    cases.add(plateau.getCase(x+1,y+1));
-                }
-            }
         }
+
         return cases;
     }
 
@@ -121,13 +103,17 @@ public class ModelRoi extends ModelPiece {
 
         for(int i = 0; i < 8; i++) {
             for(int j = 0; j < 8; j++) {
-
-                if(!plateau.getCase(i,j).estVide()
-                        && plateau.getCase(i,j).getPiece().getClr() != clr
-                        && plateau.getCase(i,j).getPiece().getValeur() != 100) {
-
+                if (!plateau.getCase(i,j).estVide() && plateau.getCase(i,j).getPiece().getValeur() == 100){
+                    int a = i;
+                    int b = y;
+                    if (((x == a-1 && y == b) || (x == a-1 && y == b-1) || (x == a-1 && y == b+1)|| (x == a && y == b-1)|| (x == a && y == b+1)|| (x == a+1 && y == b-1)|| (x == a+1 && y == b)|| (x == a+1 && y == b+1))){
+                        echec = true;
+                    }
+                }
+                else if(!plateau.getCase(i,j).estVide() && plateau.getCase(i,j).getPiece().getClr() != clr && plateau.getCase(i,j).getPiece().getValeur() != 100) {
                     if(plateau.getCase(i,j).getPiece().casesPossible(i,j).contains(plateau.getCase(x,y))) {
                         echec = true;
+                        System.out.println("bbb");
                     }
                 }
             }

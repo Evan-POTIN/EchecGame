@@ -23,7 +23,7 @@ public class ModelTour extends ModelPiece {
 
         ArrayList<ModelCase> cases = new ArrayList<>();
 
-        for(int plusX = x+1 ; plusX < 8 ; plusX++ ){
+        /*for(int plusX = x+1 ; plusX < 8 ; plusX++ ){
             if(plateau.getCase(plusX,y).estVide() || plateau.getCase(plusX,y).getPiece().clr != this.clr ){
                 cases.add(plateau.getCase(plusX, y));
 
@@ -52,9 +52,9 @@ public class ModelTour extends ModelPiece {
                     break;
                 }
             }
-        }
+        }*/
 
-        for (int moinsY = y ; moinsY >= 8 ; moinsY-- ){
+        for (int moinsY = y ; moinsY >= 0 ; moinsY-- ){
             if(plateau.getCase(x, moinsY).estVide() || plateau.getCase(x, moinsY).getPiece().clr != this.clr ){
                 cases.add(plateau.getCase(x, moinsY));
 

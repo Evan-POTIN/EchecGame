@@ -26,15 +26,7 @@ public class Jeu extends Application {
     public static void main(String[] args) {
         ModelEchiquier e = new ModelEchiquier();
         e.setRoiTour();
-        System.out.println(e.toString());
-        System.out.println(e.getRoiNoir().estEchec(0,0));
-
-        System.out.println(e.getRoiBlanc().casesPossible(e.getRoiBlanc().casesTheorique(e.getRoiBlanc().getPosition()[0],e.getRoiBlanc().getPosition()[1])));
-
-
         boolean verif = false;
-        System.out.println(e.getRoiNoir().echecEtMat());
-
 
       while (!e.getRoiBlanc().echecEtMat()  && !e.getRoiNoir().echecEtMat()) {
 

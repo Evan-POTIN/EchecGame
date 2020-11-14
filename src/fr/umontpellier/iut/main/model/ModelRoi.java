@@ -14,6 +14,59 @@ public class ModelRoi extends ModelPiece {
         this.position = position;
     }
 
+
+    @Override
+    public ArrayList<ModelCase> casesPossible(ArrayList<ModelCase> cases) {
+        ArrayList<ModelCase> casePossible = new ArrayList<>();
+        for (ModelCase c : cases ){
+            if (!estEchec(c.getPosX(), c.getPosY()) && (c.estVide() || c.getPiece().getClr() != this.clr)){
+                casePossible.add(c);
+            }
+        }
+        return casePossible;
+    }
+
+    @Override
+    public ArrayList<ModelCase> casesTheorique(int x, int y) {
+        /**
+         * @Param: Coordonnées de la pièce
+         * @Return: Liste de cases valables pour déplacement
+         */
+
+        ArrayList<ModelCase> cases = new ArrayList<>();
+
+        if (x - 1 >= 0) {
+            // Si pas sur la 1ère ligne
+            cases.add(plateau.getCase(x - 1, y));
+            if (y - 1 >= 0) {
+                cases.add(plateau.getCase(x - 1, y - 1));
+            }
+            if (y + 1 <= 7) {
+                cases.add(plateau.getCase(x - 1, y + 1));
+            }
+        }
+        if (x + 1 <= 7) {
+            // Si pas sur la dernière ligne
+            cases.add(plateau.getCase(x + 1, y));
+            if (y - 1 >= 0) {
+                cases.add(plateau.getCase(x + 1, y - 1));
+            }
+            if (y + 1 <= 7) {
+                cases.add(plateau.getCase(x + 1, y + 1));
+            }
+        }
+        if (y - 1 >= 0) {
+            // Si pas sur la 1ère colonnz
+            cases.add(plateau.getCase(x, y - 1));
+
+        }
+        if (y + 1 <= 7) {
+            // Si pas sur dernière colonne
+            cases.add(plateau.getCase(x, y + 1));
+        }
+
+        return cases;
+    }
     public int[] getPosition() {
         return position;
     }
@@ -26,71 +79,6 @@ public class ModelRoi extends ModelPiece {
         return clr == Couleurs.BLANC ? "R" : "r";
     }
 
-    @Override
-    public ArrayList<ModelCase> casesPossible(int x, int y) {
-
-        /**
-         * @Param: Coordonnées de la pièce
-         * @Return: Liste de cases valables pour déplacement
-         */
-
-        ArrayList<ModelCase> cases = new ArrayList<>();
-
-        if(x-1 >= 0) {
-            // Si pas sur la 1ère ligne
-            if(!estEchec(x-1, y)) {
-                cases.add(plateau.getCase(x-1, y));
-            }
-
-            if(y-1 >= 0) {
-                if(!estEchec(x-1, y-1)) {
-                    cases.add(plateau.getCase(x-1,y-1));
-                }
-            }
-            if(y+1 <= 7) {
-                if(!estEchec(x-1, y+1)) {
-                    cases.add(plateau.getCase(x-1,y+1));
-                }
-            }
-        }
-        if(x+1 <= 7) {
-            // Si pas sur la dernière ligne
-            if(!estEchec(x+1, y)) {
-
-                cases.add(plateau.getCase(x+1, y));
-            }
-
-
-            if(y-1 >= 0) {
-                if(!estEchec(x+1, y-1)) {
-                    cases.add(plateau.getCase(x+1, y-1));
-                }
-            }
-            if(y+1 <= 7) {
-                if(!estEchec(x+1, y+1)) {
-                    cases.add(plateau.getCase(x+1,y+1));
-                }
-            }
-        }
-        if(y-1 >= 0) {
-            // Si pas sur la 1ère colonne
-            if(!estEchec(x, y-1)) {
-                cases.add(plateau.getCase(x, y-1));
-            }
-
-        }
-        if(y+1 <= 7) {
-            // Si pas sur dernière colonne
-            if(!estEchec(x, y+1)) {
-                System.out.println("messonge");
-                cases.add(plateau.getCase(x,y+1));
-            }
-        }
-
-        return cases;
-    }
-
-
 
     public boolean estEchec(int x, int y) {
 
@@ -101,19 +89,11 @@ public class ModelRoi extends ModelPiece {
 
         boolean echec = false;
 
-        for(int i = 0; i < 8; i++) {
-            for(int j = 0; j < 8; j++) {
-                if (!plateau.getCase(i,j).estVide() && plateau.getCase(i,j).getPiece().getValeur() == 100 && plateau.getCase(i,j).getPiece().getClr() != clr){
-                    int a = i;
-                    int b = y;
-                    if (((x == a-1 && y == b) || (x == a-1 && y == b-1) || (x == a-1 && y == b+1)|| (x == a && y == b-1)|| (x == a && y == b+1)|| (x == a+1 && y == b-1)|| (x == a+1 && y == b)|| (x == a+1 && y == b+1))){
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if (!plateau.getCase(i,j).estVide() && plateau.getCase(i,j).getPiece().getClr() != clr){
+                    if (plateau.getCase(i,j).getPiece().casesTheorique(i,j).contains(plateau.getCase(x,y))){
                         echec = true;
-                    }
-                }
-                else if(!plateau.getCase(i,j).estVide() && plateau.getCase(i,j).getPiece().getClr() != clr && plateau.getCase(i,j).getPiece().getValeur() != 100) {
-                    if(plateau.getCase(i,j).getPiece().casesPossible(i,j).contains(plateau.getCase(x,y))) {
-                        echec = true;
-                        System.out.println("bbb");
                     }
                 }
             }
@@ -121,9 +101,10 @@ public class ModelRoi extends ModelPiece {
         return echec;
     }
 
-    public boolean echecEtMat(){
-        return this.estEchec(position[0], position[1]) && this.casesPossible(position[0],position[1]).size() == 0;
+    public boolean echecEtMat() {
+        return this.estEchec(position[0], position[1]) && this.casesPossible(this.casesTheorique(position[0],position[1])).size() == 0;
     }
+
     public boolean isPremierCoup() {
         return premierCoup;
     }
@@ -131,6 +112,8 @@ public class ModelRoi extends ModelPiece {
     public void setPremierCoup(boolean premierCoup) {
         this.premierCoup = premierCoup;
     }
+
+
 
     @Override
     public int getValeur() {

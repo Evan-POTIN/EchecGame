@@ -1,5 +1,7 @@
 package fr.umontpellier.iut.main.model;
 
+import com.sun.webkit.Timer;
+
 import java.util.ArrayList;
 
 public class ModelCase {
@@ -43,7 +45,7 @@ public class ModelCase {
 
     public boolean deplacerPiece(ModelCase dest) {
 
-        ArrayList<ModelCase> coupsPossible = this.piece.casesPossible(posX, posY);
+        ArrayList<ModelCase> coupsPossible = this.piece.casesPossible(this.piece.casesTheorique(posX, posY));
 
         if(coupsPossible.contains(dest)) {
             dest.setPiece(this.piece);

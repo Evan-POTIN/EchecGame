@@ -17,9 +17,9 @@ public abstract class ModelPiece {
         return clr;
     }
 
-    public ArrayList<ModelCase> casesPossible(int x, int y) {
-        return null;
-    }
+    public abstract ArrayList<ModelCase> casesPossible(ArrayList<ModelCase> c) ;
+
+    public abstract ArrayList<ModelCase> casesTheorique(int x, int y) ;
 
     public int getValeur() {
         return  valeur;

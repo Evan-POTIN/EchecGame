@@ -28,13 +28,15 @@ public class Jeu extends Application {
         e.setRoiTour();
         System.out.println(e.toString());
         System.out.println(e.getRoiNoir().estEchec(0,0));
-        System.out.println(e.getCase(0,0).getPiece().casesPossible(0,0).toString());
+
+        System.out.println(e.getRoiBlanc().casesPossible(e.getRoiBlanc().casesTheorique(e.getRoiBlanc().getPosition()[0],e.getRoiBlanc().getPosition()[1])));
+
 
         boolean verif = false;
+        System.out.println(e.getRoiNoir().echecEtMat());
 
-        System.out.println(e.getRoiNoir().casesPossible(0,0).size());
 
-        while (!e.getRoiBlanc().echecEtMat() || !e.getRoiNoir().echecEtMat()) {
+      while (!e.getRoiBlanc().echecEtMat()  && !e.getRoiNoir().echecEtMat()) {
 
             System.out.println(e.toString());
 
@@ -54,11 +56,10 @@ public class Jeu extends Application {
 
                 if ( e.getCase(posX,posY).getPiece() != null && e.getCase(posX, posY).getPiece().getClr() == Couleurs.BLANC && e.getCase(posX, posY).deplacerPiece(e.getCase(destX, destY))) {
                     verif = !verif;
-                    verif = e.getRoiNoir().echecEtMat() ? !verif : verif;
                 }
 
             }
-
+            verif = e.getRoiNoir().echecEtMat() ? !verif : verif;
             System.out.println(e.toString());
 
             while (verif) {
@@ -86,6 +87,7 @@ public class Jeu extends Application {
             System.out.println("Le joueur 2 a gagné");
         }
 
+        System.exit(0);
 
     }
 }

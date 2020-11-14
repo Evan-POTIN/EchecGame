@@ -24,12 +24,12 @@ public class TestPieces {
     @Test
     public void  testRoiEstEchecEtMat(){
         echiquierTest.setRoiTour();
-        assertTrue(echiquierTest.getRoiBlanc().echecEtMat());
+        assertTrue(echiquierTest.getRoiNoir().echecEtMat());
     }
 
     @Test
     public void  testRoiPasBouger(){
         echiquierTest.setRoiTour();
-        assertEquals(0, echiquierTest.getRoiBlanc().casesPossible(0,0).size());
+        assertEquals(0, echiquierTest.getRoiBlanc().casesPossible(echiquierTest.getRoiBlanc().casesTheorique(0,0)).size());
     }
 }

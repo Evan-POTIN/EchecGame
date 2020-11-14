@@ -34,8 +34,6 @@ public class ModelEchiquier {
         roiBlanc = (ModelRoi)echiquier[2][1].getPiece();
         echiquier[0][3].setPiece(new ModelTour(Couleurs.BLANC, this));
 
-        echiquier[1][0].setPiece(new ModelTour(Couleurs.BLANC, this));
-
 
         echiquier[0][0].setPiece(new ModelRoi(Couleurs.NOIR, this, new int[]{0, 0}));
         roiNoir = (ModelRoi)echiquier[0][0].getPiece();

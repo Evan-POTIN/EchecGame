@@ -103,7 +103,7 @@ public class ModelRoi extends ModelPiece {
 
         for(int i = 0; i < 8; i++) {
             for(int j = 0; j < 8; j++) {
-                if (!plateau.getCase(i,j).estVide() && plateau.getCase(i,j).getPiece().getValeur() == 100){
+                if (!plateau.getCase(i,j).estVide() && plateau.getCase(i,j).getPiece().getValeur() == 100 && plateau.getCase(i,j).getPiece().getClr() != clr){
                     int a = i;
                     int b = y;
                     if (((x == a-1 && y == b) || (x == a-1 && y == b-1) || (x == a-1 && y == b+1)|| (x == a && y == b-1)|| (x == a && y == b+1)|| (x == a+1 && y == b-1)|| (x == a+1 && y == b)|| (x == a+1 && y == b+1))){

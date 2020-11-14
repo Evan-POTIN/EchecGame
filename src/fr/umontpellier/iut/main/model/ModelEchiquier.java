@@ -1,6 +1,5 @@
 package fr.umontpellier.iut.main.model;
 
-import com.sun.webkit.Timer;
 
 public class ModelEchiquier {
     private static ModelCase[][] echiquier;

@@ -3,6 +3,7 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<GridPane fx:controller="fr.umontpellier.iut.main.Test"
-          xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="10" vgap="10">
+
+<GridPane fx:controller="fr.umontpellier.iut.main.controller.ControllerEchequier"
+          xmlns:fx="http://javafx.com/fxml" fx:id="fenetre">
 </GridPane>

@@ -1,7 +1,5 @@
 package fr.umontpellier.iut.main;
 
-import java.lang.Class;
-
 import fr.umontpellier.iut.main.model.ModelEchiquier;
 import fr.umontpellier.iut.main.model.*;
 import javafx.application.Application;
@@ -16,7 +14,7 @@ public class Jeu extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("echiquier.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("view/ViewEchiquier.fxml"));
         primaryStage.setTitle("Stale Chess");
         primaryStage.setScene(new Scene(root, 500, 500));
         primaryStage.show();

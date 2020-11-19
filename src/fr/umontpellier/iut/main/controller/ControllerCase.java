@@ -21,35 +21,40 @@ public class ControllerCase implements Initializable {
 
     @FXML
     private Rectangle viewCase;
-    private Paint couleur;
     private final ModelCase modelCase;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        /**
+         * Méthode lancée à l'initialisation de la vue
+         */
         //System.out.println("ControllerCase");
+
+        // Attribution des dimensions du rectangle
         viewCase.setWidth(500/8.);
         viewCase.setHeight(500/8.);
-        viewCase.setFill(couleur);
 
+        // Gestion du clic
         viewCase.setOnMouseClicked(
                 mouseEvent -> System.out.println("ControllerCase de [" + modelCase.getPosX() + ',' + modelCase.getPosY() + ']')
         );
     }
 
     public ControllerCase(ModelCase modelCase) {
+        /**
+         * @Constructeur
+         * @Param: Référence de la case qu'elle controlle
+         */
         this.modelCase = modelCase;
     }
+
 
     public Rectangle getRectangle() {
         return viewCase;
     }
 
     public void setCouleur(Paint couleur) {
-        this.couleur = couleur;
-    }
-
-    public Paint getCouleur() {
-        return couleur;
+        viewCase.setFill(couleur);
     }
 
 

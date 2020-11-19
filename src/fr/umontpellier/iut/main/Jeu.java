@@ -15,6 +15,9 @@ public class Jeu extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        /**
+         * Charge la view principale aka la ViewEchiquier
+         */
         Parent root = FXMLLoader.load(getClass().getResource("view/ViewEchiquier.fxml"));
         primaryStage.setTitle("Stale Chess");
         primaryStage.setScene(new Scene(root, 500, 500));

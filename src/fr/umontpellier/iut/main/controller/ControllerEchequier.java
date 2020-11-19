@@ -22,25 +22,32 @@ public class ControllerEchequier implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        System.out.println("ControllerEchiquier");
-        modelEchiquier = new ModelEchiquier();
+        /**
+         * Méthode lancée au chargement de la view
+         */
+
+        //System.out.println("ControllerEchiquier");
+        modelEchiquier = new ModelEchiquier();  // Instancie le modèle associé
         modelEchiquier.setRoiTour();
         System.out.println(modelEchiquier.toString());
-        //viewEchiquier.setGridLinesVisible(true);
 
+        // Parcours du plateau pour instancier les vues des cases
         for(int i=0; i<8; i++) {
             for(int j=0; j<8; j++) {
 
+                // Crée un nouveau controller associé à la case
                 ControllerCase cc = new ControllerCase(modelEchiquier.getCase(i,j));
 
+                // Charge une nouvelle vue
                 FXMLLoader loader = new FXMLLoader();
                 loader.setLocation(getClass().getResource("./../view/ViewCase.fxml"));
-                loader.setController(cc);
+                loader.setController(cc);   // Associe le controller à la vue
 
                 try {
+                    // Ajoute la vue à l'échiquier et lui attribue la bonne couleur
                     Rectangle rct = (Rectangle) loader.load();
                     Color color = (i+j) % 2 == 0 ? Color.WHITE : Color.BLACK;
-                    rct.setFill(color);
+                    cc.setCouleur(color);
                     GridPane.setConstraints(rct, i, j);
                     viewEchiquier.getChildren().add(rct);
                 } catch (IOException e) {

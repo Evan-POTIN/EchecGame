@@ -10,6 +10,5 @@
 <Rectangle xmlns="http://javafx.com/javafx"
            xmlns:fx="http://javafx.com/fxml"
            fx:id="viewCase"
-           fx:controller="fr.umontpellier.iut.main.controller.ControllerCase"
-           onMouseClicked="#clicked">
+           >
 </Rectangle>

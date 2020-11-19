@@ -35,7 +35,7 @@ public class ControllerEchequier implements Initializable {
 
                 FXMLLoader loader = new FXMLLoader();
                 loader.setLocation(getClass().getResource("./../view/ViewCase.fxml"));
-                //loader.setController(cc);
+                loader.setController(cc);
 
                 try {
                     Rectangle rct = (Rectangle) loader.load();

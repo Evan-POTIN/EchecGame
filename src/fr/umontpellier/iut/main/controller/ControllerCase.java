@@ -1,6 +1,7 @@
 package fr.umontpellier.iut.main.controller;
 
 import fr.umontpellier.iut.main.model.ModelCase;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -29,6 +30,10 @@ public class ControllerCase implements Initializable {
         viewCase.setWidth(500/8.);
         viewCase.setHeight(500/8.);
         viewCase.setFill(couleur);
+
+        viewCase.setOnMouseClicked(
+                mouseEvent -> System.out.println("ControllerCase de [" + modelCase.getPosX() + ',' + modelCase.getPosY() + ']')
+        );
     }
 
     public ControllerCase(ModelCase modelCase) {
@@ -47,9 +52,6 @@ public class ControllerCase implements Initializable {
         return couleur;
     }
 
-    @FXML
-    public void clicked(MouseEvent e) {
-        System.out.println("ControllerCase de la case [" + modelCase.getPosX() + ',' + modelCase.getPosY() +']');
-    }
+
 
 }

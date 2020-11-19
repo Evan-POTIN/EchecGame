@@ -4,8 +4,10 @@ import fr.umontpellier.iut.main.model.ModelEchiquier;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
@@ -45,7 +47,7 @@ public class ControllerEchequier implements Initializable {
 
                 try {
                     // Ajoute la vue à l'échiquier et lui attribue la bonne couleur
-                    Rectangle rct = (Rectangle) loader.load();
+                    StackPane rct = (StackPane) loader.load();
                     Color color = (i+j) % 2 == 0 ? Color.WHITE : Color.BLACK;
                     cc.setCouleur(color);
                     GridPane.setConstraints(rct, i, j);

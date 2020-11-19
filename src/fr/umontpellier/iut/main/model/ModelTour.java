@@ -6,9 +6,11 @@ import java.util.ArrayList;
 public class ModelTour extends ModelPiece {
 
     private static final int valeur = 5;
+    private final String unicode;
 
     public ModelTour(Couleurs clr, ModelEchiquier plateau) {
         super(clr, plateau);
+        unicode = clr == Couleurs.BLANC ? "♖" : "♜";
     }
 
 

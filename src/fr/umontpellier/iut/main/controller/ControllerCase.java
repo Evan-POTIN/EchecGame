@@ -1,5 +1,6 @@
 package fr.umontpellier.iut.main.controller;
 
+import fr.umontpellier.iut.main.controller.controllerPiece.ControllerPiece;
 import fr.umontpellier.iut.main.model.ModelCase;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -8,8 +9,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.awt.event.ActionEvent;
@@ -20,7 +25,7 @@ import java.util.ResourceBundle;
 public class ControllerCase implements Initializable {
 
     @FXML
-    private Rectangle viewCase;
+    private StackPane viewCase;
     private final ModelCase modelCase;
 
     @Override
@@ -31,13 +36,27 @@ public class ControllerCase implements Initializable {
         //System.out.println("ControllerCase");
 
         // Attribution des dimensions du rectangle
-        viewCase.setWidth(500/8.);
-        viewCase.setHeight(500/8.);
+        viewCase.setMinWidth(500/8.);
+        viewCase.setMinHeight(500/8.);
 
         // Gestion du clic
         viewCase.setOnMouseClicked(
-                mouseEvent -> System.out.println("ControllerCase de [" + modelCase.getPosX() + ',' + modelCase.getPosY() + ']')
+                mouseEvent -> System.out.println("ControllerCase de [" + modelCase.getPosX() + ',' + modelCase.getPosY() + ']' + modelCase.toString())
         );
+
+
+        ControllerPiece cp = new ControllerPiece(modelCase.getPiece());
+
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("../view/ViewPiece.fxml"));
+        loader.setController(cp);
+
+        try {
+            Text unicode = (Text) loader.load();
+            viewCase.getChildren().add(unicode);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public ControllerCase(ModelCase modelCase) {
@@ -49,12 +68,12 @@ public class ControllerCase implements Initializable {
     }
 
 
-    public Rectangle getRectangle() {
+    public StackPane getRectangle() {
         return viewCase;
     }
 
     public void setCouleur(Paint couleur) {
-        viewCase.setFill(couleur);
+        viewCase.setBackground(new Background(new BackgroundFill(couleur, null, null)));
     }
 
 

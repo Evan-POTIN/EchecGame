@@ -7,11 +7,13 @@ public class ModelRoi extends ModelPiece {
     private final int valeur = 100;
     private boolean premierCoup = false;
     private int[] position;
+    private final String unicode;
 
     public ModelRoi(Couleurs clr, ModelEchiquier plateau, int[] position) {
-
         super(clr, plateau);
         this.position = position;
+
+        unicode = clr == Couleurs.BLANC ? "♔" : "♚";
     }
 
 

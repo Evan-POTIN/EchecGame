@@ -7,6 +7,7 @@ public abstract class ModelPiece {
     private int valeur;
     protected Couleurs clr;
     protected ModelEchiquier plateau;    // Référence du plateau pour calculer les coups possibles
+    private String unicode;
 
     public ModelPiece(Couleurs clr, ModelEchiquier echiquier) {
         this.clr = clr;
@@ -24,4 +25,6 @@ public abstract class ModelPiece {
     public int getValeur() {
         return  valeur;
     }
+
+    public String getUnicode() { return  unicode; }
 }

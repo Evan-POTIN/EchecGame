@@ -50,7 +50,7 @@ public class ControllerEchequier implements Initializable {
                     StackPane rct = (StackPane) loader.load();
                     Color color = (i+j) % 2 == 0 ? Color.WHITE : Color.BLACK;
                     cc.setCouleur(color);
-                    GridPane.setConstraints(rct, i, j);
+                    GridPane.setConstraints(rct, j, i);
                     viewEchiquier.getChildren().add(rct);
                 } catch (IOException e) {
                     e.printStackTrace();

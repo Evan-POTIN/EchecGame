@@ -4,6 +4,7 @@ import fr.umontpellier.iut.main.model.ModelPiece;
 import fr.umontpellier.iut.main.model.ModelRoi;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
 import java.net.URL;
@@ -25,6 +26,7 @@ public class ControllerPiece implements Initializable {
         }
         else {
             icon.setText("TEST");
+            icon.setFill(Color.WHITE);
         }
     }
 }

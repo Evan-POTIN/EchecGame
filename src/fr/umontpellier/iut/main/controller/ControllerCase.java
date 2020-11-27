@@ -11,7 +11,9 @@ import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.Border;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
@@ -39,12 +41,6 @@ public class ControllerCase implements Initializable {
         viewCase.setMinWidth(500/8.);
         viewCase.setMinHeight(500/8.);
 
-        // Gestion du clic
-        viewCase.setOnMouseClicked(
-                mouseEvent -> System.out.println("ControllerCase de [" + modelCase.getPosX() + ',' + modelCase.getPosY() + ']' + modelCase.toString())
-        );
-
-
         ControllerPiece cp = new ControllerPiece(modelCase.getPiece());
 
         FXMLLoader loader = new FXMLLoader();
@@ -53,10 +49,20 @@ public class ControllerCase implements Initializable {
 
         try {
             Text unicode = (Text) loader.load();
+            unicode.setScaleY(4);
+            unicode.setScaleX(4);
             viewCase.getChildren().add(unicode);
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+
+        // Gestion du clic
+        viewCase.setOnMouseClicked(
+                mouseEvent -> {
+                    selectionnerCase();
+                }
+        );
     }
 
     public ControllerCase(ModelCase modelCase) {
@@ -76,6 +82,8 @@ public class ControllerCase implements Initializable {
         viewCase.setBackground(new Background(new BackgroundFill(couleur, null, null)));
     }
 
-
+    public void selectionnerCase() {
+        setCouleur(Color.YELLOW);
+    }
 
 }

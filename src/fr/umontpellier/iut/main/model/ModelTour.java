@@ -66,6 +66,11 @@ public class ModelTour extends ModelPiece {
     }
 
     @Override
+    public String getUnicode() {
+        return unicode;
+    }
+
+    @Override
     public ArrayList<ModelCase> casesPossible(ArrayList<ModelCase> cases) {
         ArrayList<ModelCase> casePossible = new ArrayList<>();
         for (ModelCase c : cases) {

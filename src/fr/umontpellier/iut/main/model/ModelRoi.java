@@ -7,15 +7,16 @@ public class ModelRoi extends ModelPiece {
     private final int valeur = 100;
     private boolean premierCoup = false;
     private int[] position;
-    private final String unicode;
+    private String unicode;
 
     public ModelRoi(Couleurs clr, ModelEchiquier plateau, int[] position) {
         super(clr, plateau);
         this.position = position;
 
-        unicode = clr == Couleurs.BLANC ? "♔" : "♚";
-    }
+        unicode = (clr == Couleurs.BLANC) ? "♔" : "♚";
 
+
+    }
 
     @Override
     public ArrayList<ModelCase> casesPossible(ArrayList<ModelCase> cases) {
@@ -115,7 +116,10 @@ public class ModelRoi extends ModelPiece {
         this.premierCoup = premierCoup;
     }
 
-
+    @Override
+    public String getUnicode() {
+        return unicode;
+    }
 
     @Override
     public int getValeur() {

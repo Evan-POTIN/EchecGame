@@ -26,5 +26,5 @@ public abstract class ModelPiece {
         return  valeur;
     }
 
-    public String getUnicode() { return  unicode; }
+    public abstract String getUnicode();
 }

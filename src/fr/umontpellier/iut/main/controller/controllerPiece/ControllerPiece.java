@@ -1,5 +1,6 @@
 package fr.umontpellier.iut.main.controller.controllerPiece;
 
+import fr.umontpellier.iut.main.model.Couleurs;
 import fr.umontpellier.iut.main.model.ModelPiece;
 import fr.umontpellier.iut.main.model.ModelRoi;
 import javafx.fxml.FXML;
@@ -21,12 +22,15 @@ public class ControllerPiece implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
         if(piece != null) {
             icon.setText(piece.getUnicode());
-        }
-        else {
-            icon.setText("TEST");
-            icon.setFill(Color.WHITE);
+
+            if(piece.getClr() == Couleurs.BLANC) {
+                icon.setFill(Color.GREEN);
+            } else {
+                icon.setFill(Color.RED);
+            }
         }
     }
 }

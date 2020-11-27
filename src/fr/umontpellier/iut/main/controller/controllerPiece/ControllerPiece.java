@@ -23,12 +23,14 @@ public class ControllerPiece implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        // Si la case n'est pas vide on ajoute l'unicode de la piece
         if(piece != null) {
             icon.setText(piece.getUnicode());
 
+            // Vert is la pièce est blanche
             if(piece.getClr() == Couleurs.BLANC) {
                 icon.setFill(Color.GREEN);
-            } else {
+            } else {    // Rouge sinon
                 icon.setFill(Color.RED);
             }
         }

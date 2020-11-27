@@ -1,9 +1,11 @@
 package fr.umontpellier.iut.main.controller;
 
+import fr.umontpellier.iut.main.model.ModelCase;
 import fr.umontpellier.iut.main.model.ModelEchiquier;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.GridPane;
@@ -58,5 +60,21 @@ public class ControllerEchequier implements Initializable {
 
             }
         }
+
+        int nbClique = 0;
+        viewEchiquier.setOnMouseClicked(
+                mouseEvent -> {
+                    // Recalcule les coordonnée de la case depuis la viewEchiquier
+                    // mouseEvent.getX() renvoie la position du clic relativement aux 500 pixels de dimension
+                    // Je divise donc par 64 pour le ramener à un nombre entre 0 et 1 pour l'index 0
+                    // Etant donné que c'est un float, je cast en int pour garder que la partie entier
+                    // J'inverse le x et le y car c'est géré de différente manière entre une matrice et un GridPane
+
+                    int x = (int)mouseEvent.getY()/64;
+                    int y = (int)mouseEvent.getX()/64;
+                    System.out.println(x + " " + y + modelEchiquier.getCase(x,y).getPiece().getUnicode());
+                }
+        );
     }
+
 }

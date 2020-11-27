@@ -83,7 +83,7 @@ public class ControllerCase implements Initializable {
     }
 
     public void selectionnerCase() {
-        setCouleur(Color.YELLOW);
+        //setCouleur(Color.YELLOW);
     }
 
 }

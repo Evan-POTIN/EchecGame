@@ -1,20 +1,22 @@
 package fr.umontpellier.iut.main.controller;
 
+import com.sun.webkit.Timer;
+import fr.umontpellier.iut.main.model.Couleurs;
 import fr.umontpellier.iut.main.model.ModelCase;
 import fr.umontpellier.iut.main.model.ModelEchiquier;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class ControllerEchequier implements Initializable {
@@ -36,11 +38,11 @@ public class ControllerEchequier implements Initializable {
         System.out.println(modelEchiquier.toString());
 
         // Parcours du plateau pour instancier les vues des cases
-        for(int i=0; i<8; i++) {
-            for(int j=0; j<8; j++) {
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
 
                 // Crée un nouveau controller associé à la case
-                ControllerCase cc = new ControllerCase(modelEchiquier.getCase(i,j));
+                ControllerCase cc = new ControllerCase(modelEchiquier.getCase(i, j));
 
                 // Charge une nouvelle vue
                 FXMLLoader loader = new FXMLLoader();
@@ -50,7 +52,7 @@ public class ControllerEchequier implements Initializable {
                 try {
                     // Ajoute la vue à l'échiquier et lui attribue la bonne couleur
                     StackPane rct = (StackPane) loader.load();
-                    Color color = (i+j) % 2 == 0 ? Color.WHITE : Color.BLACK;
+                    Color color = (i + j) % 2 == 0 ? Color.WHITE : Color.BLACK;
                     cc.setCouleur(color);
                     GridPane.setConstraints(rct, j, i);
                     viewEchiquier.getChildren().add(rct);
@@ -70,11 +72,39 @@ public class ControllerEchequier implements Initializable {
                     // Etant donné que c'est un float, je cast en int pour garder que la partie entier
                     // J'inverse le x et le y car c'est géré de différente manière entre une matrice et un GridPane
 
-                    int x = (int)mouseEvent.getY()/64;
-                    int y = (int)mouseEvent.getX()/64;
-                    System.out.println(x + " " + y + modelEchiquier.getCase(x,y).getPiece().getUnicode());
+                    int x = (int) mouseEvent.getY() / 64;
+                    int y = (int) mouseEvent.getX() / 64;
+                    for (int i = 0; i < 8; i++) {
+                        for (int j = 0; j < 8; j++) {
+                            StackPane a = getStackPaneByRowColumnIndex(i,j);
+                            if ((i + j) % 2 == 0){
+                                a.setBackground(new Background(new BackgroundFill(Color.WHITE, null, null)));
+                            }else {
+                                a.setBackground(new Background(new BackgroundFill(Color.BLACK, null, null)));
+                            }
+                        }
+                    }
+                    if (modelEchiquier.getCase(x, y).getPiece() != null) {
+                        ArrayList<ModelCase> casePossible = new ArrayList<>(modelEchiquier.getCase(x, y).getPiece().casesPossible(modelEchiquier.getCase(x, y).getPiece().casesTheorique(x, y)));
+                        for (ModelCase c : casePossible ){
+                            StackPane a = getStackPaneByRowColumnIndex(c.getPosX(),c.getPosY());
+                            a.setBackground(new Background(new BackgroundFill(Color.BLUEVIOLET, null, null)));
+                        }
+                    }
                 }
         );
     }
+    public StackPane getStackPaneByRowColumnIndex (int row,int column) {
+        StackPane result = null;
+        ObservableList<Node> childrens = viewEchiquier.getChildren();
 
+        for (Node node : childrens) {
+            if(viewEchiquier.getRowIndex(node) == row && viewEchiquier.getColumnIndex(node) == column) {
+                result = (StackPane)node;
+                break;
+            }
+        }
+
+        return result;
+    }
 }

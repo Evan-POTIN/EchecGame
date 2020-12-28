@@ -74,6 +74,7 @@ public class ControllerEchequier implements Initializable {
                     int x = (int)mouseEvent.getY()/64;
                     int y = (int)mouseEvent.getX()/64;
                     System.out.println(x + " " + y + modelEchiquier.getCase(x,y).getPiece().getUnicode());
+                    
                 }
         );
     }

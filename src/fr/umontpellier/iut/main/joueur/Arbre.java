@@ -1,5 +1,6 @@
 package fr.umontpellier.iut.main.joueur;
 
+import fr.umontpellier.iut.main.model.ModelCase;
 import fr.umontpellier.iut.main.model.ModelEchiquier;
 
 import java.util.ArrayList;
@@ -12,8 +13,8 @@ public class Arbre {
 
     public Arbre(ModelEchiquier me, int vc) { coup = me; valeurCoup = vc; }
 
-    public ModelEchiquier getCoup() {
-        return coup;
+    public ModelCase[][] getCoup() {
+        return coup.getEchiquier();
     }
 
     public ArrayList<Arbre> getFils() {

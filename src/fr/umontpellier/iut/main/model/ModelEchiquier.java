@@ -2,7 +2,7 @@ package fr.umontpellier.iut.main.model;
 
 
 public class ModelEchiquier {
-    private static ModelCase[][] echiquier;
+    private ModelCase[][] echiquier;
     private ModelRoi roiBlanc;
     private ModelRoi roiNoir;
 
@@ -16,7 +16,13 @@ public class ModelEchiquier {
         }
     }
 
-    public static ModelCase[][] getEchiquier() {
+    public ModelEchiquier(ModelEchiquier e) {
+        echiquier = e.getEchiquier();
+        roiBlanc = e.getRoiBlanc();
+        roiNoir = e.getRoiNoir();
+    }
+
+    public ModelCase[][] getEchiquier() {
         return echiquier;
     }
 
@@ -55,6 +61,7 @@ public class ModelEchiquier {
         return echiquier[x][y];
     }
 
+    public void setEchiquier(ModelCase[][] mc) { echiquier = mc; }
 
 
 }

@@ -1,6 +1,8 @@
 package fr.umontpellier.iut.main.model;
 
 
+import java.util.ArrayList;
+
 public class ModelEchiquier {
     private ModelCase[][] echiquier;
     private ModelRoi roiBlanc;
@@ -63,5 +65,17 @@ public class ModelEchiquier {
 
     public void setEchiquier(ModelCase[][] mc) { echiquier = mc; }
 
+    public ArrayList<ModelCase> getAllPieces() {
+        ArrayList<ModelCase> pieces = new ArrayList<>();
+
+        for(int i=0; i<8; i++) {
+            for(int j=0; j<8; j++) {
+                if(echiquier[i][j] != null) {
+                    pieces.add(echiquier[i][j]);
+                }
+            }
+        }
+        return pieces;
+    }
 
 }

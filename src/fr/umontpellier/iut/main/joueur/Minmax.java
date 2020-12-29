@@ -3,6 +3,9 @@ package fr.umontpellier.iut.main.joueur;
 import fr.umontpellier.iut.main.model.Couleurs;
 import fr.umontpellier.iut.main.model.ModelCase;
 import fr.umontpellier.iut.main.model.ModelEchiquier;
+import fr.umontpellier.iut.main.model.ModelPiece;
+
+import java.util.ArrayList;
 
 public class Minmax extends Joueur{
 
@@ -65,6 +68,31 @@ public class Minmax extends Joueur{
         eval -= me.getRoiBlanc().casesPossible(me.getRoiBlanc().casesTheorique(me.getRoiBlanc().getPosition()[0],me.getRoiBlanc().getPosition()[1])).size();
 
         return eval;
+    }
+
+
+    public Arbre genererFils(ModelEchiquier me) {
+        // Initialisation de l'arbre avec la position initiale
+        Arbre abr = new Arbre(me, evaluerPosition(me));
+
+        // Parcours toutes les pièces sur le plateau
+        for(ModelCase piece : me.getAllPieces()) {
+
+            // Récupère les cases possibles
+            ArrayList<ModelCase> casesPossible = piece.getPiece().casesPossible(piece.getPiece().casesTheorique(piece.getPosX(), piece.getPosY()));
+
+            // Parcours les cases possibles
+            for(ModelCase coup : casesPossible) {
+
+                // Copie de l'échiquier initial
+                ModelEchiquier nouvellePos = new ModelEchiquier(me);
+                nouvellePos.getCase(piece.getPosX(), piece.getPosY()).deplacerPiece(coup);  // Déplace la pièce dans la copie
+
+                // Ajout dans l'arbre
+                abr.addFils(nouvellePos, evaluerPosition(nouvellePos));
+            }
+        }
+        return abr;
     }
 
 }

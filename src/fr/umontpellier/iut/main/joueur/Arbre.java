@@ -7,14 +7,14 @@ import java.util.ArrayList;
 
 public class Arbre {
 
-    private ModelEchiquier coup;
-    private int valeurCoup;
+    private final ModelEchiquier coup;
+    private final int valeurCoup;
     private ArrayList<Arbre> fils;
 
     public Arbre(ModelEchiquier me, int vc) { coup = me; valeurCoup = vc; }
 
-    public ModelCase[][] getCoup() {
-        return coup.getEchiquier();
+    public ModelEchiquier getCoup() {
+        return coup;
     }
 
     public ArrayList<Arbre> getFils() {
@@ -30,7 +30,7 @@ public class Arbre {
             while(vc <= fils.get(i).valeurCoup || i < fils.size()) {
                 i++;
             }
-            fils.add(new Arbre(me,vc));
+            fils.add(i, new Arbre(me,vc));
         }
     }
 }

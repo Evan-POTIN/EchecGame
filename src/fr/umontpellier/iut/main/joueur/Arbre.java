@@ -22,12 +22,16 @@ public class Arbre {
     }
 
     public void addFils(ModelEchiquier me, int vc) {
-        if(fils.isEmpty()) {
+        if(fils == null) {
+            fils = new ArrayList<>();
+            fils.add(new Arbre(me,vc));
+        }
+        else if(fils.isEmpty()) {
             fils.add(new Arbre(me,vc));
         }
         else {
             int i=0;
-            while(vc <= fils.get(i).valeurCoup || i < fils.size()) {
+            while(vc <= fils.get(i).valeurCoup) {
                 i++;
             }
             fils.add(i, new Arbre(me,vc));

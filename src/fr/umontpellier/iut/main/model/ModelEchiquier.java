@@ -65,12 +65,25 @@ public class ModelEchiquier {
 
     public void setEchiquier(ModelCase[][] mc) { echiquier = mc; }
 
-    public ArrayList<ModelCase> getAllPieces() {
+    public ArrayList<ModelCase> getPiecesBlanc() {
         ArrayList<ModelCase> pieces = new ArrayList<>();
 
         for(int i=0; i<8; i++) {
             for(int j=0; j<8; j++) {
-                if(echiquier[i][j] != null) {
+                if(echiquier[i][j] != null && echiquier[i][j].getPiece().getClr() == Couleurs.BLANC) {
+                    pieces.add(echiquier[i][j]);
+                }
+            }
+        }
+        return pieces;
+    }
+
+    public ArrayList<ModelCase> getPiecesNoir() {
+        ArrayList<ModelCase> pieces = new ArrayList<>();
+
+        for(int i=0; i<8; i++) {
+            for(int j=0; j<8; j++) {
+                if(echiquier[i][j] != null && echiquier[i][j].getPiece().getClr() == Couleurs.NOIR) {
                     pieces.add(echiquier[i][j]);
                 }
             }

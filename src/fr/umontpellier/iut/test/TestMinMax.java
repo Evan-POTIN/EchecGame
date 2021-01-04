@@ -11,11 +11,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class TestMinMax {
 
     private ModelEchiquier echiquierRef = new ModelEchiquier();
-    Minmax minmax = new Minmax(Couleurs.BLANC);
 
     @Test
     public void testEvaluer() {
         echiquierRef.setRoiTour();
+        Minmax minmax = new Minmax(Couleurs.BLANC, 3, echiquierRef);
         assertEquals(1003, minmax.evaluerPosition(echiquierRef));
 
         echiquierRef.getCase(0,3).deplacerPiece(echiquierRef.getCase(1,3));

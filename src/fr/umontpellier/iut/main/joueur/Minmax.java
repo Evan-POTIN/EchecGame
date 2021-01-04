@@ -10,9 +10,12 @@ import java.util.ArrayList;
 public class Minmax extends Joueur{
 
     private int taille;
+    private Arbre position;
 
-    public Minmax(Couleurs couleur) {
+    public Minmax(Couleurs couleur, int t, ModelEchiquier me) {
         super(couleur);
+        taille = t;
+        position = new Arbre(me, evaluerPosition(me));
     }
 
     public Couleurs getCouleur() { return super.getCouleur(); }
@@ -65,31 +68,25 @@ public class Minmax extends Joueur{
         eval -= me.getRoiNoir().casesPossible(me.getRoiNoir().casesTheorique(me.getRoiNoir().getPosition()[0],me.getRoiNoir().getPosition()[1])).size();
 
         // Ajoute le nombre de case où le roi blanc peut se déplacer
-        eval -= me.getRoiBlanc().casesPossible(me.getRoiBlanc().casesTheorique(me.getRoiBlanc().getPosition()[0],me.getRoiBlanc().getPosition()[1])).size();
+        //eval += me.getRoiBlanc().casesPossible(me.getRoiBlanc().casesTheorique(me.getRoiBlanc().getPosition()[0],me.getRoiBlanc().getPosition()[1])).size();
 
         return eval;
     }
 
 
-    public Arbre genererFils(ModelEchiquier me) {
-        // Initialisation de l'arbre avec la position initiale
-        Arbre abr = new Arbre(me, evaluerPosition(me));
+    public Arbre genererArbre(Arbre abr, boolean jBlanc, int i) {
+        ArrayList<ModelCase> pieces = (jBlanc) ? abr.getCoup().getPiecesBlanc() : abr.getCoup().getPiecesNoir();
 
-        // Parcours toutes les pièces sur le plateau
-        for(ModelCase piece : me.getAllPieces()) {
+        if(i < taille) {
+            for(ModelCase p : pieces) {
+                ArrayList<ModelCase> casesPossibles = abr.getCoup().getCase(p.getPosX(), p.getPosY()).getPiece().casesPossible(abr.getCoup().getCase(p.getPosX(), p.getPosY()).getPiece().casesTheorique(p.getPosX(), p.getPosY()));
 
-            // Récupère les cases possibles
-            ArrayList<ModelCase> casesPossible = piece.getPiece().casesPossible(piece.getPiece().casesTheorique(piece.getPosX(), piece.getPosY()));
-
-            // Parcours les cases possibles
-            for(ModelCase coup : casesPossible) {
-
-                // Copie de l'échiquier initial
-                ModelEchiquier nouvellePos = new ModelEchiquier(me);
-                nouvellePos.getCase(piece.getPosX(), piece.getPosY()).deplacerPiece(coup);  // Déplace la pièce dans la copie
-
-                // Ajout dans l'arbre
-                abr.addFils(nouvellePos, evaluerPosition(nouvellePos));
+                for(int j=0; j<casesPossibles.size(); j++) {
+                    ModelEchiquier nouvellePos = new ModelEchiquier(abr.getCoup());
+                    nouvellePos.getCase(p.getPosX(), p.getPosY()).deplacerPiece(nouvellePos.getCase(casesPossibles.get(j).getPosX(), casesPossibles.get(j).getPosY()));
+                    abr.addFils(nouvellePos, evaluerPosition(nouvellePos));
+                    genererArbre(abr.getFils().get(j), !jBlanc, i++);
+                }
             }
         }
         return abr;

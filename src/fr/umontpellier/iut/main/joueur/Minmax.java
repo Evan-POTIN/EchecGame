@@ -7,15 +7,13 @@ import fr.umontpellier.iut.main.model.ModelPiece;
 
 import java.util.ArrayList;
 
-public class Minmax extends Joueur{
+public class Minmax extends Joueur {
 
     private int taille;
-    private Arbre position;
 
     public Minmax(Couleurs couleur, int t, ModelEchiquier me) {
         super(couleur);
         taille = t;
-        position = new Arbre(me, evaluerPosition(me));
     }
 
     public Couleurs getCouleur() { return super.getCouleur(); }
@@ -68,28 +66,60 @@ public class Minmax extends Joueur{
         eval -= me.getRoiNoir().casesPossible(me.getRoiNoir().casesTheorique(me.getRoiNoir().getPosition()[0],me.getRoiNoir().getPosition()[1])).size();
 
         // Ajoute le nombre de case où le roi blanc peut se déplacer
-        //eval += me.getRoiBlanc().casesPossible(me.getRoiBlanc().casesTheorique(me.getRoiBlanc().getPosition()[0],me.getRoiBlanc().getPosition()[1])).size();
+        // eval += me.getRoiBlanc().casesPossible(me.getRoiBlanc().casesTheorique(me.getRoiBlanc().getPosition()[0],me.getRoiBlanc().getPosition()[1])).size();
 
         return eval;
     }
 
 
-    public Arbre genererArbre(Arbre abr, boolean jBlanc, int i) {
-        ArrayList<ModelCase> pieces = (jBlanc) ? abr.getCoup().getPiecesBlanc() : abr.getCoup().getPiecesNoir();
+    public Arbre genererFils(ModelEchiquier me) {
+        Arbre abr = new Arbre(me, evaluerPosition(me));
+        ArrayList<ModelCase> pieces = (getCouleur() == Couleurs.BLANC) ? me.getPiecesBlanc() : me.getPiecesNoir();
 
-        if(i < taille) {
-            for(ModelCase p : pieces) {
-                ArrayList<ModelCase> casesPossibles = abr.getCoup().getCase(p.getPosX(), p.getPosY()).getPiece().casesPossible(abr.getCoup().getCase(p.getPosX(), p.getPosY()).getPiece().casesTheorique(p.getPosX(), p.getPosY()));
+        for(ModelCase p : pieces) {
+            ArrayList<ModelCase> casesPossible = p.getPiece().casesPossible(p.getPiece().casesTheorique(p.getPosX(), p.getPosY()));
 
-                for(int j=0; j<casesPossibles.size(); j++) {
-                    ModelEchiquier nouvellePos = new ModelEchiquier(abr.getCoup());
-                    nouvellePos.getCase(p.getPosX(), p.getPosY()).deplacerPiece(nouvellePos.getCase(casesPossibles.get(j).getPosX(), casesPossibles.get(j).getPosY()));
-                    abr.addFils(nouvellePos, evaluerPosition(nouvellePos));
-                    genererArbre(abr.getFils().get(j), !jBlanc, i++);
-                }
+            for(ModelCase cp : casesPossible) {
+                ModelEchiquier nouvellePos = new ModelEchiquier(me);
+                nouvellePos.getCase(p.getPosX(), p.getPosY()).deplacerPiece(nouvellePos.getCase(cp.getPosX(), cp.getPosY()));
+
+                abr.addFils(nouvellePos, evaluerPosition(nouvellePos));
             }
         }
         return abr;
+    }
+
+
+    public Arbre minmax(ModelEchiquier me, int profondeur, int alpha, int beta, boolean jBlanc) {
+        Arbre abr = genererFils(me);
+
+        if(profondeur == 0 || me.getRoiNoir().echecEtMat() || me.getRoiBlanc().echecEtMat()) {
+            return abr;
+        }
+        else if(jBlanc) {
+            int maxEval = Integer.MIN_VALUE;
+
+            for(Arbre fils : abr.getFils()) {
+                int eval = minmax(fils.getCoup(), profondeur-1, alpha, beta, !jBlanc).getValeurCoup();
+                maxEval = Math.max(maxEval, eval);
+                alpha = Math.max(alpha, eval);
+
+                if(beta <= alpha) break;
+            }
+            return abr.getFilsByEval(maxEval);
+        }
+        else {
+            int minEval = Integer.MAX_VALUE;
+
+            for(Arbre fils : abr.getFils()) {
+                int eval = minmax(fils.getCoup(), profondeur-1, alpha, beta, !jBlanc).getValeurCoup();
+                minEval = Math.min(minEval, eval);
+                beta = Math.min(beta, minEval);
+
+                if(beta <= alpha) break;
+            }
+            return abr.getFilsByEval(minEval);
+        }
     }
 
 }

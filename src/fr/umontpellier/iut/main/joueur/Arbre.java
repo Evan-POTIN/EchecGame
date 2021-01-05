@@ -21,6 +21,19 @@ public class Arbre {
         return fils;
     }
 
+    public int getValeurCoup() {
+        return valeurCoup;
+    }
+
+    public Arbre getFilsByEval(int eval) {
+        for(int i=0; i<fils.size(); i++) {
+            if(fils.get(i).getValeurCoup() == eval) {
+                return fils.get(i);
+                break;
+            }
+        }
+    }
+
     public void addFils(ModelEchiquier me, int vc) {
         if(fils == null) {
             fils = new ArrayList<>();

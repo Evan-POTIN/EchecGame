@@ -22,6 +22,7 @@ public class Jeu extends Application {
         primaryStage.setTitle("Stale Chess");
         primaryStage.setScene(new Scene(root, 500, 500));
         primaryStage.show();
+
     }
 
 

@@ -7,16 +7,13 @@ import fr.umontpellier.iut.main.model.ModelPiece;
 
 import java.util.ArrayList;
 
-public class Minmax extends Joueur {
+public class Minmax {
 
     private int taille;
 
-    public Minmax(Couleurs couleur, int t, ModelEchiquier me) {
-        super(couleur);
+    public Minmax(int t, ModelEchiquier me) {
         taille = t;
     }
-
-    public Couleurs getCouleur() { return super.getCouleur(); }
 
     public int evaluerPosition(ModelEchiquier me) {
 
@@ -74,7 +71,7 @@ public class Minmax extends Joueur {
 
     public Arbre genererFils(ModelEchiquier me) {
         Arbre abr = new Arbre(me, evaluerPosition(me));
-        ArrayList<ModelCase> pieces = (getCouleur() == Couleurs.BLANC) ? me.getPiecesBlanc() : me.getPiecesNoir();
+        ArrayList<ModelCase> pieces = me.getPiecesBlanc();
 
         for(ModelCase p : pieces) {
             ArrayList<ModelCase> casesPossible = p.getPiece().casesPossible(p.getPiece().casesTheorique(p.getPosX(), p.getPosY()));

@@ -11,7 +11,7 @@ public class Minmax {
 
     private int taille;
 
-    public Minmax(int t, ModelEchiquier me) {
+    public Minmax(int t) {
         taille = t;
     }
 

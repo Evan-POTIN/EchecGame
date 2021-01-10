@@ -26,12 +26,16 @@ public class Arbre {
     }
 
     public Arbre getFilsByEval(int eval) {
-        for(int i=0; i<fils.size(); i++) {
-            if(fils.get(i).getValeurCoup() == eval) {
-                return fils.get(i);
-                break;
-            }
+
+        /**
+         * @Action : renvoie la 1er coup ayant comme evaluation la valeur passée en paramètre
+         */
+
+        int i=0;
+        while(fils.get(i).getValeurCoup() < eval) {
+            i++;
         }
+        return fils.get(i);
     }
 
     public void addFils(ModelEchiquier me, int vc) {

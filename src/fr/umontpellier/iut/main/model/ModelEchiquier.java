@@ -70,7 +70,7 @@ public class ModelEchiquier {
 
         for(int i=0; i<8; i++) {
             for(int j=0; j<8; j++) {
-                if(echiquier[i][j] != null && echiquier[i][j].getPiece().getClr() == Couleurs.BLANC) {
+                if(!getCase(i,j).estVide() && echiquier[i][j].getPiece().getClr() == Couleurs.BLANC) {
                     pieces.add(echiquier[i][j]);
                 }
             }
@@ -83,7 +83,7 @@ public class ModelEchiquier {
 
         for(int i=0; i<8; i++) {
             for(int j=0; j<8; j++) {
-                if(echiquier[i][j] != null && echiquier[i][j].getPiece().getClr() == Couleurs.NOIR) {
+                if(!getCase(i,j).estVide() && echiquier[i][j].getPiece().getClr() == Couleurs.NOIR) {
                     pieces.add(echiquier[i][j]);
                 }
             }

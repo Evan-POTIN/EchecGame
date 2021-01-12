@@ -16,7 +16,7 @@ public class TestMinMax {
     @Test
     public void testEvaluer() {
         echiquierRef.setRoiTour();
-        Minmax minmax = new Minmax(3);
+        Minmax minmax = new Minmax();
         assertEquals(1003, minmax.evaluerPosition(echiquierRef));
 
         echiquierRef.getCase(0,3).deplacerPiece(echiquierRef.getCase(1,3));
@@ -29,7 +29,7 @@ public class TestMinMax {
     public void testGenererFils() {
         echiquierRef.setRoiTour();
         echiquierRef.getCase(0, 3).setPiece(null);   // Suppression de la tour pour faciliter le test
-        Minmax minmax = new Minmax(1);
+        Minmax minmax = new Minmax();
 
         System.out.println(echiquierRef);
 

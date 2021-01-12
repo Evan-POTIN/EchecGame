@@ -9,11 +9,6 @@ import java.util.ArrayList;
 
 public class Minmax {
 
-    private int taille;
-
-    public Minmax(int t) {
-        taille = t;
-    }
 
     public int evaluerPosition(ModelEchiquier me) {
 

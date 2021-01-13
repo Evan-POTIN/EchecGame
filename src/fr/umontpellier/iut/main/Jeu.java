@@ -1,6 +1,8 @@
 package fr.umontpellier.iut.main;
 
 import fr.umontpellier.iut.main.controller.ControllerEchequier;
+import fr.umontpellier.iut.main.joueur.Arbre;
+import fr.umontpellier.iut.main.joueur.Minmax;
 import fr.umontpellier.iut.main.model.ModelEchiquier;
 import fr.umontpellier.iut.main.model.*;
 import javafx.application.Application;
@@ -34,49 +36,35 @@ public class Jeu extends Application {
         e.setRoiTour();
         boolean verif = false;
 
+        Minmax minmax = new Minmax(3);
+
       while (!e.getRoiBlanc().echecEtMat()  && !e.getRoiNoir().echecEtMat()) {
 
             System.out.println(e.toString());
 
             while (!verif) {
+                System.out.println("Tour du joueur blanc");
+                e = minmax.jouerCoup(e);
+                verif = true;
+            }
+          System.out.println(e.toString());
+
+          while (verif) {
+
+                ModelCase roiNoir = e.getCase(e.getRoiNoir().getPosition()[0], e.getRoiNoir().getPosition()[1]);
+
                 Scanner sc = new Scanner(System.in);
-                System.out.println("Joueur 1 choisit un pion a bouger");
+                System.out.println("Tour du joueur noir");
                 System.out.print("le X : ");
                 int posX = sc.nextInt();
                 System.out.print("\nle Y : ");
                 int posY = sc.nextInt();
 
-                System.out.println("Joueur 1 choisit où envoyer ce pion");
-                System.out.print("le X : ");
-                int destX = sc.nextInt();
-                System.out.print("\nle Y : ");
-                int destY = sc.nextInt();
-
-                if ( e.getCase(posX,posY).getPiece() != null && e.getCase(posX, posY).getPiece().getClr() == Couleurs.BLANC && e.getCase(posX, posY).deplacerPiece(e.getCase(destX, destY))) {
-                    verif = !verif;
+                if (roiNoir.deplacerPiece(e.getCase(posX, posY))) {
+                    verif = false;
                 }
-
             }
-            verif = e.getRoiNoir().echecEtMat() ? !verif : verif;
             System.out.println(e.toString());
-
-            while (verif) {
-                Scanner sc = new Scanner(System.in);
-                System.out.println("Joueur 2 choisit un pion a bouger");
-                System.out.print("le X : ");
-                int posX = sc.nextInt();
-                System.out.print("\nle Y : ");
-                int posY = sc.nextInt();
-
-                System.out.println("Joueur 2 choisit où envoyer ce pion");
-                System.out.print("le X : ");
-                int destX = sc.nextInt();
-                System.out.print("\nle Y : ");
-                int destY = sc.nextInt();
-                if (e.getCase(posX,posY).getPiece() != null && e.getCase(posX, posY).getPiece().getClr() == Couleurs.NOIR && e.getCase(posX, posY).deplacerPiece(e.getCase(destX, destY))) {
-                    verif = !verif;
-                }
-            }
         }
 
         if (e.getRoiNoir().echecEtMat()){

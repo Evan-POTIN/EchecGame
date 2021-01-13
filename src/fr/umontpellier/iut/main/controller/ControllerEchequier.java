@@ -95,6 +95,7 @@ public class ControllerEchequier implements Initializable {
 
 
         int nbClique = 0;
+
         viewEchiquier.setOnMouseClicked(
                 mouseEvent -> {
                     // Recalcule les coordonnée de la case depuis la viewEchiquier
@@ -175,6 +176,7 @@ public class ControllerEchequier implements Initializable {
                         casePossible = null;
                         prevPiece = null;
                     };
+
                 }
         );
     }

@@ -151,11 +151,11 @@ public class ControllerEchequier implements Initializable {
                         }else{
                             Stage finishStage = new Stage();
                             Pane pane = new Pane();
-                            Label label;
+                            Label label = new Label();
                             Scene finishScene = new Scene(pane, 800, 560);
-                            if (!quiJoue){
-                                label = new Label("Les noirs ont gagnée");
-                            }else {
+                            if (modelEchiquier.getRoiNoir().echecEtMat()){
+                                label = new Label("Les blancs ont gagnée");
+                            }else if (modelEchiquier.getRoiBlanc().echecEtMat()){
                                 label = new Label("Les blancs ont gagnée");
                             }
 

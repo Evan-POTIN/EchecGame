@@ -1,6 +1,7 @@
 package fr.umontpellier.iut.main.controller;
 
 import com.sun.webkit.Timer;
+import fr.umontpellier.iut.main.joueur.Minmax;
 import fr.umontpellier.iut.main.model.Couleurs;
 import fr.umontpellier.iut.main.model.ModelCase;
 import fr.umontpellier.iut.main.model.ModelEchiquier;
@@ -37,6 +38,8 @@ public class ControllerEchequier implements Initializable {
 
     ModelCase prevPiece;
 
+    Minmax minmax;
+
     boolean quiJoue;
 
     @Override
@@ -47,6 +50,7 @@ public class ControllerEchequier implements Initializable {
 
         //System.out.println("ControllerEchiquier");
         modelEchiquier = new ModelEchiquier();  // Instancie le modèle associé
+        minmax = new Minmax(3);
         modelEchiquier.setRoiTour();
         System.out.println(modelEchiquier.toString());
         quiJoue = true;
@@ -54,13 +58,14 @@ public class ControllerEchequier implements Initializable {
 
 
     }
-    public StackPane getStackPaneByRowColumnIndex (int row,int column) {
+
+    public StackPane getStackPaneByRowColumnIndex(int row, int column) {
         StackPane result = null;
         ObservableList<Node> childrens = viewEchiquier.getChildren();
 
         for (Node node : childrens) {
-            if(viewEchiquier.getRowIndex(node) == row && viewEchiquier.getColumnIndex(node) == column) {
-                result = (StackPane)node;
+            if (viewEchiquier.getRowIndex(node) == row && viewEchiquier.getColumnIndex(node) == column) {
+                result = (StackPane) node;
                 break;
             }
         }
@@ -108,76 +113,88 @@ public class ControllerEchequier implements Initializable {
                     int y = (int) mouseEvent.getX() / 64;
                     for (int i = 0; i < 8; i++) {
                         for (int j = 0; j < 8; j++) {
-                            StackPane a = getStackPaneByRowColumnIndex(i,j);
-                            if ((i + j) % 2 == 0){
+                            StackPane a = getStackPaneByRowColumnIndex(i, j);
+                            if ((i + j) % 2 == 0) {
                                 a.setBackground(new Background(new BackgroundFill(Color.WHITE, null, null)));
-                            }else {
+                            } else {
                                 a.setBackground(new Background(new BackgroundFill(Color.BLACK, null, null)));
                             }
                         }
                     }
-                    if (modelEchiquier.getCase(x, y).getPiece() != null) {
-                        System.out.println("aa");
-                        if (modelEchiquier.getCase(x,y).getPiece().getClr() == Couleurs.BLANC && quiJoue == true) {
-                            System.out.println("bb");
-                            casePossible = new ArrayList<>(modelEchiquier.getCase(x, y).getPiece().casesPossible(modelEchiquier.getCase(x, y).getPiece().casesTheorique(x, y)));
-                            prevPiece = new ModelCase(modelEchiquier.getCase(x, y).getPiece(), x, y);
-                            for (ModelCase c : casePossible) {
-                                StackPane a = getStackPaneByRowColumnIndex(c.getPosX(), c.getPosY());
-                                a.setBackground(new Background(new BackgroundFill(Color.BLUEVIOLET, null, null)));
-                                System.out.println("ff");
-                            }
-
-                        }else if(modelEchiquier.getCase(x,y).getPiece().getClr() == Couleurs.NOIR && quiJoue == false){
-                            System.out.println("cc");
-                            casePossible = new ArrayList<>(modelEchiquier.getCase(x, y).getPiece().casesPossible(modelEchiquier.getCase(x, y).getPiece().casesTheorique(x, y)));
-                            prevPiece = new ModelCase(modelEchiquier.getCase(x, y).getPiece(), x, y);
-                            for (ModelCase c : casePossible) {
-                                System.out.println("ee");
-                                StackPane a = getStackPaneByRowColumnIndex(c.getPosX(), c.getPosY());
-
-                                a.setBackground(new Background(new BackgroundFill(Color.BLUEVIOLET, null, null)));
-                            }
-
-                        }
-                        System.out.println(casePossible);
-                    }else if (casePossible != null && casePossible.contains(modelEchiquier.getCase(x,y))){
-                        System.out.println(casePossible);
-                        modelEchiquier.getCase(prevPiece.getPosX(),prevPiece.getPosY()).deplacerPiece(modelEchiquier.getCase(x,y));
-
-                        if (!modelEchiquier.getRoiBlanc().echecEtMat()  && !modelEchiquier.getRoiNoir().echecEtMat()){
+                    if (quiJoue) {
+                        modelEchiquier = minmax.jouerCoup(modelEchiquier);
+                        if (!modelEchiquier.getRoiBlanc().echecEtMat() && !modelEchiquier.getRoiNoir().echecEtMat()) {
                             quiJoue = !quiJoue;
                             loadScreen();
 
-                        }else{
-                            Stage finishStage = new Stage();
-                            Pane pane = new Pane();
-                            Label label = new Label();
-                            Scene finishScene = new Scene(pane, 800, 560);
-                            if (modelEchiquier.getRoiNoir().echecEtMat()){
-                                label = new Label("Les blancs ont gagnée");
-                            }else if (modelEchiquier.getRoiBlanc().echecEtMat()){
-                                label = new Label("Les blancs ont gagnée");
+                        } else {
+                            ecranFin();
+                        }
+                    } else {
+                        if (modelEchiquier.getCase(x, y).getPiece() != null) {
+                        /*if (modelEchiquier.getCase(x,y).getPiece().getClr() == Couleurs.BLANC && quiJoue == true) {
+                            casePossible = new ArrayList<>(modelEchiquier.getCase(x, y).getPiece().casesPossible(modelEchiquier.getCase(x, y).getPiece().casesTheorique(x, y)));
+                            prevPiece = new ModelCase(modelEchiquier.getCase(x, y).getPiece(), x, y);
+                            for (ModelCase c : casePossible) {
+                                StackPane a = getStackPaneByRowColumnIndex(c.getPosX(), c.getPosY());
+                                a.setBackground(new Background(new BackgroundFill(Color.BLUEVIOLET, null, null)));
+                            }*/
+
+                            if (modelEchiquier.getCase(x, y).getPiece().getClr() == Couleurs.NOIR) {
+                                System.out.println("cc");
+                                casePossible = new ArrayList<>(modelEchiquier.getCase(x, y).getPiece().casesPossible(modelEchiquier.getCase(x, y).getPiece().casesTheorique(x, y)));
+                                prevPiece = new ModelCase(modelEchiquier.getCase(x, y).getPiece(), x, y);
+                                for (ModelCase c : casePossible) {
+                                    System.out.println("ee");
+                                    StackPane a = getStackPaneByRowColumnIndex(c.getPosX(), c.getPosY());
+
+                                    a.setBackground(new Background(new BackgroundFill(Color.BLUEVIOLET, null, null)));
+                                }
+
+                            }
+                            System.out.println(casePossible);
+                        } else if (casePossible != null && casePossible.contains(modelEchiquier.getCase(x, y))) {
+                            System.out.println(casePossible);
+                            modelEchiquier.getCase(prevPiece.getPosX(), prevPiece.getPosY()).deplacerPiece(modelEchiquier.getCase(x, y));
+
+                            if (!modelEchiquier.getRoiBlanc().echecEtMat() && !modelEchiquier.getRoiNoir().echecEtMat()) {
+                                quiJoue = !quiJoue;
+                                loadScreen();
+
+                            } else {
+                                ecranFin();
                             }
 
-                            FlowPane root = new FlowPane();
-                            root.setPadding(new Insets(10));
-                            root.getChildren().add(label);
 
-                            Scene scene = new Scene(root, 200, 100);
-
-                            finishStage.setScene(scene);
-                            finishStage.show();
+                        } else {
+                            casePossible = null;
+                            prevPiece = null;
                         }
+                        ;
 
-
-
-                    }else{
-                        casePossible = null;
-                        prevPiece = null;
-                    };
-
+                    }
                 }
         );
+    }
+
+    public void ecranFin(){
+        Stage finishStage = new Stage();
+        Pane pane = new Pane();
+        Label label = new Label();
+        Scene finishScene = new Scene(pane, 800, 560);
+        if (modelEchiquier.getRoiNoir().echecEtMat()) {
+            label = new Label("Les blancs ont gagnée");
+        } else if (modelEchiquier.getRoiBlanc().echecEtMat()) {
+            label = new Label("Les blancs ont gagnée");
+        }
+
+        FlowPane root = new FlowPane();
+        root.setPadding(new Insets(10));
+        root.getChildren().add(label);
+
+        Scene scene = new Scene(root, 200, 100);
+
+        finishStage.setScene(scene);
+        finishStage.show();
     }
 }

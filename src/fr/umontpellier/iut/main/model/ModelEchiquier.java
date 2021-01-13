@@ -19,9 +19,31 @@ public class ModelEchiquier {
     }
 
     public ModelEchiquier(ModelEchiquier e) {
-        echiquier = e.getEchiquier();
-        roiBlanc = e.getRoiBlanc();
-        roiNoir = e.getRoiNoir();
+        echiquier = new ModelCase[8][8];
+
+        for(int i=0; i<8; i++) {
+            for(int j=0; j<8; j++) {
+
+                if(!e.getCase(i,j).estVide()) {
+                    if(e.getCase(i,j).getPiece().getValeur() == 100) {
+                        if(e.getCase(i,j).getPiece().getClr() == Couleurs.BLANC) {
+                            echiquier[i][j] = new ModelCase(new ModelRoi(Couleurs.BLANC, this, e.getRoiBlanc().getPosition()), i,j);
+                            roiBlanc = (ModelRoi) echiquier[i][j].getPiece();
+                        }
+                        else {
+                            echiquier[i][j] = new ModelCase(new ModelRoi(Couleurs.NOIR, this, e.getRoiNoir().getPosition()), i,j);
+                            roiNoir = (ModelRoi) echiquier[i][j].getPiece();
+                        }
+                    }
+                    else {
+                        echiquier[i][j] = new ModelCase(new ModelTour(Couleurs.BLANC, this), i, j);
+                    }
+                }
+                else {
+                    echiquier[i][j] = new ModelCase(null, i, j);
+                }
+            }
+        }
     }
 
     public ModelCase[][] getEchiquier() {

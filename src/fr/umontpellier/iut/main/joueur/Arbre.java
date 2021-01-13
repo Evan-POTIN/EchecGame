@@ -8,14 +8,16 @@ import java.util.ArrayList;
 public class Arbre {
 
     private final ModelEchiquier coup;
-    private final int valeurCoup;
+    private int valeurCoup;
     private ArrayList<Arbre> fils;
 
-    public Arbre(ModelEchiquier me, int vc) { coup = me; valeurCoup = vc; }
+    public Arbre(ModelEchiquier me) {coup = me; fils = new ArrayList<>(); valeurCoup = Integer.MIN_VALUE; }
 
     public ModelEchiquier getCoup() {
         return coup;
     }
+
+    public void setValeurCoup(int vc) { valeurCoup = vc;}
 
     public ArrayList<Arbre> getFils() {
         return fils;
@@ -31,27 +33,14 @@ public class Arbre {
          * @Action : renvoie la 1er coup ayant comme evaluation la valeur passée en paramètre
          */
 
-        int i=0;
-        while(fils.get(i).getValeurCoup() < eval) {
-            i++;
-        }
-        return fils.get(i);
-    }
+        Arbre a = fils.get(0);
 
-    public void addFils(ModelEchiquier me, int vc) {
-        if(fils == null) {
-            fils = new ArrayList<>();
-            fils.add(new Arbre(me,vc));
-        }
-        else if(fils.isEmpty()) {
-            fils.add(new Arbre(me,vc));
-        }
-        else {
-            int i=0;
-            while(vc <= fils.get(i).valeurCoup) {
-                i++;
+        for(Arbre fils : fils) {
+            if(fils.getValeurCoup() == eval) {
+                a = fils;
+                break;
             }
-            fils.add(i, new Arbre(me,vc));
         }
+        return a;
     }
 }

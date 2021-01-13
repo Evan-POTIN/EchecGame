@@ -1,6 +1,7 @@
 package fr.umontpellier.iut.main;
 
 import fr.umontpellier.iut.main.controller.ControllerEchequier;
+import fr.umontpellier.iut.main.joueur.Arbre;
 import fr.umontpellier.iut.main.joueur.Minmax;
 import fr.umontpellier.iut.main.model.ModelEchiquier;
 import fr.umontpellier.iut.main.model.*;
@@ -28,13 +29,13 @@ public class Jeu extends Application {
 
     public static void main(String[] args) {
 
-        launch(args);
+        //launch(args);
 
         ModelEchiquier e = new ModelEchiquier();
         e.setRoiTour();
         boolean verif = false;
 
-        Minmax minmax = new Minmax();
+        Minmax minmax = new Minmax(3);
 
       while (!e.getRoiBlanc().echecEtMat()  && !e.getRoiNoir().echecEtMat()) {
 
@@ -42,14 +43,12 @@ public class Jeu extends Application {
 
             while (!verif) {
                 System.out.println("Tour du joueur blanc");
-
-                e = minmax.minmax(e, 1, Integer.MIN_VALUE, Integer.MAX_VALUE, true).getCoup();
-
+                e = minmax.jouerCoup(e);
+                verif = true;
             }
-            verif = e.getRoiNoir().echecEtMat() ? !verif : verif;
-            System.out.println(e.toString());
+          System.out.println(e.toString());
 
-            while (verif) {
+          while (verif) {
 
                 ModelCase roiNoir = e.getCase(e.getRoiNoir().getPosition()[0], e.getRoiNoir().getPosition()[1]);
 
@@ -61,7 +60,7 @@ public class Jeu extends Application {
                 int posY = sc.nextInt();
 
                 if (roiNoir.deplacerPiece(e.getCase(posX, posY))) {
-                    verif = !verif;
+                    verif = false;
                 }
             }
             System.out.println(e.toString());

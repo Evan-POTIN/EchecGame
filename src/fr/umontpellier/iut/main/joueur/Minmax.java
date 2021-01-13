@@ -9,6 +9,9 @@ import java.util.ArrayList;
 
 public class Minmax {
 
+    int taille;
+
+    public Minmax(int taille) { this.taille = taille; }
 
     public int evaluerPosition(ModelEchiquier me) {
 
@@ -64,54 +67,52 @@ public class Minmax {
     }
 
 
-    public Arbre genererFils(ModelEchiquier me) {
-        Arbre abr = new Arbre(me, evaluerPosition(me));
-        ArrayList<ModelCase> pieces = me.getPiecesBlanc();
+    public Arbre genererFils(Arbre me, boolean jBlanc) {
+        ArrayList<ModelCase> pieces = (jBlanc) ? me.getCoup().getPiecesBlanc() : me.getCoup().getPiecesNoir();
 
         for(ModelCase p : pieces) {
             ArrayList<ModelCase> casesPossible = p.getPiece().casesPossible(p.getPiece().casesTheorique(p.getPosX(), p.getPosY()));
 
             for(ModelCase cp : casesPossible) {
-                ModelEchiquier nouvellePos = new ModelEchiquier(me);
+                ModelEchiquier nouvellePos = new ModelEchiquier(me.getCoup());
                 nouvellePos.getCase(p.getPosX(), p.getPosY()).deplacerPiece(nouvellePos.getCase(cp.getPosX(), cp.getPosY()));
 
-                abr.addFils(nouvellePos, evaluerPosition(nouvellePos));
+                me.getFils().add(new Arbre(nouvellePos));
             }
         }
-        return abr;
+        return me;
     }
 
 
-    public Arbre minmax(ModelEchiquier me, int profondeur, int alpha, int beta, boolean jBlanc) {
-        Arbre abr = genererFils(me);
+    public int minmax(Arbre me, int profondeur, boolean jBlanc) {
+        Arbre abr = genererFils(me, jBlanc);
 
-        if(profondeur == 0 || me.getRoiNoir().echecEtMat() || me.getRoiBlanc().echecEtMat()) {
-            return abr;
+        if(profondeur == 0 || me.getCoup().getRoiNoir().echecEtMat() || me.getCoup().getRoiBlanc().echecEtMat()) {
+            return evaluerPosition(abr.getCoup());
         }
         else if(jBlanc) {
             int maxEval = Integer.MIN_VALUE;
 
             for(Arbre fils : abr.getFils()) {
-                int eval = minmax(fils.getCoup(), profondeur-1, alpha, beta, !jBlanc).getValeurCoup();
+                int eval = minmax(fils, profondeur-1, false);
                 maxEval = Math.max(maxEval, eval);
-                alpha = Math.max(alpha, eval);
-
-                if(beta <= alpha) break;
             }
-            return abr.getFilsByEval(maxEval);
+            return maxEval;
         }
         else {
             int minEval = Integer.MAX_VALUE;
 
             for(Arbre fils : abr.getFils()) {
-                int eval = minmax(fils.getCoup(), profondeur-1, alpha, beta, !jBlanc).getValeurCoup();
+                int eval = minmax(fils, profondeur-1, true);
                 minEval = Math.min(minEval, eval);
-                beta = Math.min(beta, minEval);
-
-                if(beta <= alpha) break;
             }
-            return abr.getFilsByEval(minEval);
+            return minEval;
         }
+    }
+
+    public ModelEchiquier jouerCoup(ModelEchiquier me) {
+        Arbre abr = new Arbre(me);
+        return abr.getFilsByEval(minmax(abr, taille, true)).getCoup();
     }
 
 }

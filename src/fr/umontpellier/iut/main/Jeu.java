@@ -24,12 +24,13 @@ public class Jeu extends Application {
         primaryStage.setTitle("Stale Chess");
         primaryStage.setScene(new Scene(root, 500, 500));
         primaryStage.show();
+
     }
 
 
     public static void main(String[] args) {
 
-        //launch(args);
+        launch(args);
 
         ModelEchiquier e = new ModelEchiquier();
         e.setRoiTour();

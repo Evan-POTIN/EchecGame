@@ -141,20 +141,16 @@ public class ControllerEchequier implements Initializable {
                             }*/
 
                             if (modelEchiquier.getCase(x, y).getPiece().getClr() == Couleurs.NOIR) {
-                                System.out.println("cc");
                                 casePossible = new ArrayList<>(modelEchiquier.getCase(x, y).getPiece().casesPossible(modelEchiquier.getCase(x, y).getPiece().casesTheorique(x, y)));
                                 prevPiece = new ModelCase(modelEchiquier.getCase(x, y).getPiece(), x, y);
                                 for (ModelCase c : casePossible) {
-                                    System.out.println("ee");
                                     StackPane a = getStackPaneByRowColumnIndex(c.getPosX(), c.getPosY());
 
                                     a.setBackground(new Background(new BackgroundFill(Color.BLUEVIOLET, null, null)));
                                 }
 
                             }
-                            System.out.println(casePossible);
                         } else if (casePossible != null && casePossible.contains(modelEchiquier.getCase(x, y))) {
-                            System.out.println(casePossible);
                             modelEchiquier.getCase(prevPiece.getPosX(), prevPiece.getPosY()).deplacerPiece(modelEchiquier.getCase(x, y));
 
                             if (!modelEchiquier.getRoiBlanc().echecEtMat() && !modelEchiquier.getRoiNoir().echecEtMat()) {
